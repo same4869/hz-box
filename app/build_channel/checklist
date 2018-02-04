@@ -1,0 +1,9 @@
+1.req环境要变过来online或者qa
+2.mqtt服务器地址确认
+3.mapping文件确认
+
+keystore
+store=hwwj-keystore
+alias=happywwj
+storePass=happywwj
+pass=happywwj

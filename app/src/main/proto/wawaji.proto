@@ -1,0 +1,51 @@
+syntax = "proto3";
+package wawa.protocol;
+
+message Commands{
+    int64 command = 1;
+}
+
+enum COMMAND {
+    ACK = 0X0000;
+    AUTH_REQ = 0x0001;
+    AUTH_RSP = 0x0002;
+    HEART_BEAT_REQ = 0x0003;
+    HEART_BEAT_RSP = 0x0004;
+    NOTICE_SERVER_REQ = 0x0005; //app抓取结果通知娃娃机
+    NOTICE_SERVER_RSP = 0x0006;
+    NOTICE_APP_REQ = 0x0007; //娃娃机通知app
+    NOTICE_APP_RSP = 0X0008;
+}
+message AuthReq {
+    int64 wwjID = 1;
+    string token = 2;
+}
+message AuthRsp {
+    int64 wwjID = 1;
+    uint32 code = 2;
+    string msg = 3;
+}
+message HeartbeatReq {
+    int64 wwjID = 1;
+}
+message HeartbeatRsp {
+    int64 wwjID = 1;
+}
+message NoticeAppReq {
+    int64 wwjID = 1;
+    string data = 2;
+    int64 force = 3;
+}
+message NoticeAppRsp {
+    int64 wwjID = 1;
+    string msg = 3;
+}
+message NoticeServerReq {
+    int64 wwjID = 1;
+    string data = 2;
+}
+message NoticeServerRsp {
+    int64 wwjID = 1;
+    uint32 code = 2;
+    string msg = 3;
+}

@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.protobuf'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+    defaultConfig {
+        applicationId "renren.wawabox"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1001012
+        versionName "1.1.12"
+    }
+
+    useLibrary 'org.apache.http.legacy'
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+protobuf {
+    //这里配置protoc编译器
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.0.0-alpha-3'
+    }
+    plugins {
+        javalite {
+            // The codegen for lite comes as a separate artifact
+            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+        }
+    }
+    //这里配置生成目录，编译后会在build的目录下生成对应的java文件
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                javalite {}
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile('org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0') {
+        exclude module: 'support-v4'
+    }
+    compile('org.eclipse.paho:org.eclipse.paho.android.service:1.1.1') {
+        exclude module: 'support-v4'
+    }
+    compile 'com.xwang:commlib:1.0.6'
+    compile 'com.tencent.ilivesdk:ilivesdk:1.7.0'
+    compile 'com.tencent.livesdk:livesdk:1.1.4'
+    compile 'com.google.protobuf:protobuf-lite:3.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.alibaba:fastjson:1.2.37'
+}
